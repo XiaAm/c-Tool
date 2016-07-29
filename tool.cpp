@@ -19,7 +19,9 @@
 #include <apd/common/ApdOtfVarsTemp.hpp>
 #include <apd/common/roomcodeclassifier/BomResult.hpp>
 
-using namespace CRI::shopping;
+using namespace CRI::shopping;  
+//namespace is the scope, (if there is another function with the same name in another library, 
+//the name will refer to the function in shopping)
 
 namespace APD {
 
@@ -27,6 +29,7 @@ std::string const UcLogReport::EMPTY_FIELD = "";
 std::string const UcLogReport::ROOM_PARSER_STATS = "RoomParser";
 
 // ////////////////////////////////////////////////////////////////////////////
+//constructor of class UcLogReport
 UcLogReport::UcLogReport( BomAvailPricingRs  const* const iResponse
                         , BomAvailPricingRq  const* const iRequest
                         , toolbox::TimeValue const& iRequestTimestamp
@@ -86,6 +89,9 @@ void UcLogReport::log(BomAvailPricingRs const& iResponse, BomAvailPricingRq cons
 {
     APD_LOG_INFO("APD_REPORT - log()");
     std::stringstream theReport;
+    //theReport is a stringstream
+    //<< is the operator the put string in the stream, then theReport.str() will output the string in the stream
+    // SECTION_START is |, I guess, FIELD_SEPARATOR is |
         try {
             std::vector<BomPropertyStay*> const theProperties = iResponse.getCandidateProperties();
             theReport << LOG_VERSION << SECTION_START;
@@ -144,6 +150,7 @@ void UcLogReport::log(BomAvailPricingRs const& iResponse, BomAvailPricingRq cons
                 }
             }
 
+            //this HDP_LOG_REPORT write the log to log file, I guess
             HDP_LOG_REPORT(theReport.str());
             HDP_LOG_DEBUG(theReport.str());
 
@@ -437,6 +444,7 @@ std::string UcLogReport::getChainsFromRequest(BomAvailPricingRq const* const iRe
 
     return EMPTY_FIELD;
 }
+//the following is for getting the value of the field, e.g. Rates,...
 
 // ////////////////////////////////////////////////////////////////////////////
 // Rates
